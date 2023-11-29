@@ -14,8 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/category', newsRoutes);
-app.use('/api/clipped-news', clippedNewsRoutes);
+app.use("/api/category", newsRoutes);
+app.use("/api/clipped-news", clippedNewsRoutes); // 새로운 라우트 사용
+app.use("/api/clipped-news/specific", clippedNewsRoutes);
+app.use("/api/clipped-news/category/:category_id", clippedNewsRoutes);
+app.use("/api/clipped-news/submit-settings", clippedNewsRoutes); // 새로운 라우트 사용
+app.use("/api/clipped-news/summary", clippedNewsRoutes);
+app.use("/api/news", newsRoutes);
 app.use('/api/news/category', newsByCategoryRouter);
 app.use('/api/news/date-category', newsByDateCategoryRouter);
 app.use('/api/upload', uploadRoutes);

@@ -48,7 +48,33 @@ const getAllClippedNews = () => {
     });
   });
 };
+const getSpecificClippedNews = () => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
+      // 새로운 쿼리를 작성하여 필요한 데이터만 가져오기
+      const sql = `
+        SELECT
+          category_id,
+          title,
+          url,
+          publication_date
+        FROM
+          clipped_news
+      `;
+
+      connection.query(sql, (err, results) => {
+        connection.release();
+        if (err) reject(err);
+        resolve(results);
+      });
+    });
+  });
+};
 //  DB에서 특정 카테고리 ID에 해당하는 뉴스의 title, url, category, publication_date를 가져오는 함수
 const getNewsByCategoryId = (categoryId) => {
   return new Promise((resolve, reject) => {
@@ -144,4 +170,4 @@ const saveClippedNews = (newsData) => {
 
 
 
-module.exports = { getAllNewsCategories, getAllClippedNews, getNewsByCategoryId, getNewsByDateAndCategory, saveClippedNews };
+module.exports = { getAllNewsCategories, getSpecificClippedNews, getAllClippedNews, getNewsByCategoryId, getNewsByDateAndCategory, saveClippedNews };

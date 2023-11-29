@@ -1,0 +1,6 @@
+[Purpose]
+Summarize a news article about [data] in three sentences in korean. 
+
+[Background]
+[title] is the title of a korean news article
+[data] is the article body of the Korean news article [title].

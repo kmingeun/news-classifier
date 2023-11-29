@@ -20,23 +20,6 @@ router.get('/specific', async (req, res) => {
   }
 });
 
-// category_id 에 맞춰서 데베에서 끌고오는 라우터
-router.get('/category/:category_id', async (req, res) => {
-  try {
-    const categoryId = req.params.categoryId;
-
-    // Get news by category ID from the database
-    const news = await getNewsByCategoryId(categoryId);
-
-    res.json(news);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-module.exports = router;
-
-let userSettings = {};
 
 // Endpoint for submitting user settings
 router.post('/submit-settings', async (req, res) => {
@@ -61,7 +44,7 @@ router.post('/submit-settings', async (req, res) => {
 });
 
 // 선택한 기사 요약보기 버튼 누르면 api로 Post
-router.post('/summarize-selected-articles', (req, res) => {
+router.post('/summary', (req, res) => {
   try {
     // Get selected articles
     const selectedArticles = req.body.selectedArticles;
